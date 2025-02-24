@@ -6,7 +6,7 @@ from flask import Flask, render_template
 from models import storage
 from models.state import State
 from models.city import City
-from models.amenity import Amenity
+from models.amenity import Amenity 
 from models.place import Place
 import uuid
 
@@ -18,11 +18,9 @@ def teardown_db(exception):
     """Remove the current SQLAlchemy Session"""
     storage.close()
 
-@app.route('/1-hbnb/')
-def hbnb_filters():
-    """
-    HBNB is alive!
-    """
+@app.route('/0-hbnb/')
+def hbnb():
+    """HBNB is alive!"""
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
     st_ct = []
@@ -36,7 +34,7 @@ def hbnb_filters():
     places = storage.all(Place).values()
     places = sorted(places, key=lambda k: k.name)
 
-    return render_template('1-hbnb.html',
+    return render_template('0-hbnb.html',
                          states=st_ct,
                          amenities=amenities,
                          places=places,
